@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link href="css/jquery.mobile-1.4.2.min.css" rel="stylesheet" type="text/css" />
+  <link href="" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="js/jquery/jquery-1.9.1.min.js"></script>
+  <script src="js/jquery/jquery.mobile-1.4.2.min.js"></script> 
+  <script src="js/jquery/jquery.maskedinput.js"></script> 
+  <script type="text/javascript">
+
+        document.addEventListener("deviceready", onDeviceReady, false);      
+        
+        function onDeviceReady() {   
+            carregaMascara();
+        }        
+      
+        function carregaMascara(){
+            $("#txtAltura").mask("9,99");
+            $("#txtPeso").mask("99,9");
+        }
+      
+        function limparCampos(){
+            document.getElementById("txtAltura").value = "";
+            document.getElementById("txtPeso").value = "";
+        }
+    
+        function calcularIMC(){
+            var imc;
+            var altura = parseFloat(document.getElementById("txtAltura").value.replace(",","."));
+            var peso = parseFloat(document.getElementById("txtPeso").value.replace(",","."));
+            
+            if (altura != "" && peso != ""){                    
+                imc = altura * altura;
+                imc = peso / imc;
+                imc = imc.toFixed(2)
+                
+                document.getElementById("lblResultado").innerHTML = "Seu IMC é de: " + imc;
+                if (imc < 17){
+                    document.getElementById("lblResultado2").innerHTML = "Você está muito abaixo do peso.";  
+                }
+                if (imc >= 17 && imc < 18,5 ){
+                    document.getElementById("lblResultado2").innerHTML = "Você está abaixo do peso.";  
+                }
+                if (imc >= 18,5 && imc < 25 ){
+                    document.getElementById("lblResultado2").innerHTML = "Você está com o peso normal.";  
+                }
+                if (imc >= 25 && imc < 30 ){
+                    document.getElementById("lblResultado2").innerHTML = "Você está acima do peso.";  
+                }
+                if (imc >= 30 && imc < 35 ){
+                    document.getElementById("lblResultado2").innerHTML = "Você está com Obesidade I.";  
+                }
+                if (imc >= 35 && imc < 40 ){
+                    document.getElementById("lblResultado2").innerHTML = "Você está com Obesidade II (severa).";  
+                }            
+                if (imc >= 40){
+                    document.getElementById("lblResultado2").innerHTML = "Você está com Obesidade III (mórbida).";  
+                } 
+                
+                $.mobile.changePage( "#resultado", { transition: "slide"});
+            } else{
+                navigator.notification.alert(
+                    "Preencha os campos para prosseguir.",
+                    function(){ },
+                    'Atenção',
+                    'Ok'
+                );     
+            }
+        }  
+  </script>    
+  <title>Calculo do IMC</title>
+</head>
+
+<body>
+  <!-- Page: home  -->
+  <div id="home" data-role="page">
+    <div role="main" class="ui-content">
+      <h1>Calcule seu IMC</h1>
+      <a class="ui-btn" data-transition="slide" href="#calcular">Começar!</a>
+    </div>
+  </div>
+  <!-- Page: calcular  -->
+  <div id="calcular" data-role="page">
+    <div data-role="header" data-position="fixed">
+      <h3>Calcule seu IMC</h3>
+    </div>
+    <div role="main" class="ui-content">
+      <div class="ui-field-contain">
+        <label for="txtPeso">Digite seu peso (em kg):</label>
+        <input type="text" name="" id="txtPeso">
+      </div>
+      <div class="ui-field-contain">
+        <label for="txtAltura">Digite sua altura (em metros):</label>
+        <input type="text" name="" id="txtAltura">
+      </div>
+      <a class="ui-btn" data-transition="slide" href="#" onclick="calcularIMC()">Calcular</a>
+    </div>
+  </div>
+  <!-- Page: resultado  -->
+  <div id="resultado" data-role="page">
+    <div data-role="header" data-position="fixed">
+      <h3>Resultado</h3>
+    </div>
+    <div role="main" class="ui-content">
+      <h4 id="lblResultado">Resultado:</h4>
+      <h4 id="lblResultado2">Resultado:</h4>
+      <a class="ui-btn" href="#home" data-transition="slide" data-direction="reverse" onclick="limparCampos()">Recomeçar!</a>
+    </div>
+  </div>
+</body>
+
+</html>

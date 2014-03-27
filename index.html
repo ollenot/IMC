@@ -97,15 +97,23 @@
     </div>
     <div role="main" class="ui-content">
       <div class="ui-field-contain">
-        <label for="txtPeso">Digite seu peso (em kg):</label>
+          <div>
+            <label for="txtPeso">Digite seu peso (em kg):</label>
+         </div>
+          <div>
         <input type="text" name="" id="txtPeso">
+          </div>
       </div>
       <div class="ui-field-contain">
-        <label for="txtAltura">Digite sua altura (em metros):</label>
+          <div>
+            <label for="txtAltura">Digite sua altura (em metros):</label>
+          </div>
+          <div>
         <input type="text" name="" id="txtAltura">
+          </div>
       </div>
       <a class="ui-btn" data-transition="slide" href="#" onclick="calcularIMC()">Calcular</a>
-    </div>
+    </div>       
   </div>
   <!-- Page: resultado  -->
   <div id="resultado" data-role="page">
@@ -117,8 +125,8 @@
       <h4 id="lblResultado">Resultado:</h4>
       <h4 id="lblResultado2">Resultado:</h4>
       <a class="ui-btn" href="#home" data-transition="slide" data-direction="reverse" onclick="limparCampos()">Recomeçar!</a>
-    </div>
-  </div>
+    </div>       
+  </div>        
 </body>
 
 </html>
